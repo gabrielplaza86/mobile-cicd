@@ -13,6 +13,7 @@ async function run() {
     core.debug(`Waiting ${ms} milliseconds ...`)
 
     // Log the current timestamp, wait, then log the new timestamp
+    console.log(`Hello World!`)
     core.debug(new Date().toTimeString())
     await wait(parseInt(ms, 10))
     core.debug(new Date().toTimeString())

@@ -1,6 +1,6 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Test Action HW'
+description: 'Description for CUstom Github action HW'
+author: 'MobCICD'
 
 # Define your inputs here.
 inputs:

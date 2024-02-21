@@ -15,5 +15,12 @@ outputs:
     description: 'Your output description here'
 
 runs:
-  using: node20
-  main: src/main.js
+  using: 'composite'
+  steps:
+    - id: added-comment
+      run: |
+        echo "HELLO WORLD ${{ inputs.milliseconds }}"
+      shell: bash
+
+
+#############################

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: opt_out_usage" time="0.000229">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="8.2e-05">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: appcenter_upload" time="8.312302">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: appcenter_fetch_version_number" time="0.594947">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

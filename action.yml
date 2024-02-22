@@ -19,6 +19,8 @@ runs:
   steps:
     - id: added-comment
       run: |
+        ls 
+        ls utils
         echo "HELLO WORLD ${{ inputs.milliseconds }}"
       shell: bash
 

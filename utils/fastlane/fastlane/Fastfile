@@ -1,0 +1,156 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# REQUIRED
+require 'yaml'
+require 'json'
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+opt_out_usage
+
+default_platform(:ios)
+
+# IOS -> DEFAULT PLATFORM
+platform :ios do
+
+  # GENERIC FUNCTIONS IOS
+  def self.config_settings(options={})
+    puts "Working directory: #{Dir.pwd}"
+    config = YAML.load(open(File.join(File.dirname(__FILE__), "fastlane/fastlane_config.yml")))
+    OpenStruct.new(config)['app']
+  end
+
+  desc "Update Config Project
+  Parameters:
+  - target: Specify target you want to toggle the signing mech
+  - build_config: Specify build_configuration you want to toggle the signing mech
+  - xcodeproj: Path to your Xcode project
+  - teamid: Team ID, is used when upgrading project
+  - appidentifier: Application Product Bundle Identifier
+  - sign_identity: Code signing identity type
+  - provision_profile_name: Provisioning profile name to use for code signing"
+  lane :update_config_project do |options|
+    update_code_signing_settings(
+        use_automatic_signing: false,
+        targets: options[:target],
+        build_configurations: options[:build_config],
+        path: options[:xcodeproj],
+        team_id: options[:teamid],
+        bundle_identifier: options[:appidentifier],
+        code_sign_identity: options[:sign_identity],
+        profile_name: options[:provision_profile_name]
+    )
+    UI.success "Finish project configuration"
+  end
+
+  desc "Set build number for app
+  Accepted parameters:
+  - build_number: example 20211223132514"
+  lane :set_build_number_for_app  do |options|
+    set_build_number(
+      xcodeproj: options[:xcodeproj], 
+      build_number: options[:build_number]
+    )
+  end
+
+  desc "Codesign an existing ipa file
+  Accepted parameters:
+  - ipa: Ipa resign path
+  - signing_identity: Code signing identity type
+  - provision_profiles_string: Provisioning profile name to use for code signing
+  - mobile_provision_directory: MObile provision directory"
+  lane :resign_ipa_file do |options|
+    provision_profiles_json = JSON.parse(options[:provision_profiles_string])
+    provision_profiles = {}
+    provision_profiles_json.each do |provision_profile|
+        key = provision_profile['app_identifier']
+        value = provision_profile['provision_name'].gsub(" ","_")
+        value = "#{options[:mobile_provision_directory]}/#{value}.mobileprovision"
+        provision_profiles[key] = value
+    end
+    resign(
+      ipa: options[:ipa],
+      signing_identity: options[:signing_identity],
+      provisioning_profile: provision_profiles
+    )
+  end
+end
+
+# ANDROID
+platform :android do
+
+lane :deploy_appcenter do |options|
+  result = appcenter_upload(options)
+  
+  result = appcenter_fetch_version_number(
+    api_token: options[:api_token],
+    owner_name: options[:owner_name],
+    app_name: options[:app_name]
+  )
+  UI.message "
+      BUILD_ID: #{result["id"]}, 
+      BUILD_NUMBER: #{result["version"]},
+      BUILD_VERSION: #{result["build_number"]}, 
+      DOWNLOAD_LINK: #{Actions.lane_context[SharedValues::APPCENTER_DOWNLOAD_LINK]} 🔗,
+      RELEASE_LINK: https://appcenter.ms/orgs/#{options[:owner_name]}/apps/#{options[:app_name]}/distribute/releases/#{result["id"]} 🔗"
+
+      
+  #Actions.lane_context[SharedValues::APPCENTER_BUILD_ID] = result["id"]
+  #Actions.lane_context[SharedValues::APPCENTER_BUILD_NUMBER] = result["version"]
+  #Actions.lane_context[SharedValues::APPCENTER_BUILD_VERSION] = result["build_number"]
+  
+  UI.success "Finish"
+  #{"DOWNLOAD_LINK": Actions.lane_context[SharedValues::APPCENTER_DOWNLOAD_LINK], "RELEASE_LINK": "https://appcenter.ms/orgs/#{options[:owner_name]}/apps/#{options[:app_name]}/distribute/releases/#{result["id"]}"}
+end
+
+
+  desc "Huawei App Gallery Connect Info:
+  Parameters:
+  - client_id: Client id (project=N/A)
+  - client_secret: Client Secret key # pragma: allowlist secret
+  - app_id: App identification"
+  lane :get_app_info do |options|
+    huawei_appgallery_connect_get_app_info(
+      client_id: options[:client_id],
+      client_secret: options[:client_secret],
+      app_id: options[:app_id],
+    )
+    UI.success "Finish"
+  end
+
+  desc "Huawei App Gallery Connect Upload:
+  Parameters:
+  - client_id: Client id (project=N/A)
+  - client_secret: Client Secret key # pragma: allowlist secret
+  - app_id: App identification
+  - apk_path: Path Apk'
+  - submit_for_review: False by default"
+  lane :upload_to_huawei do |options|
+    # Optionals
+    options[:submit_for_review] = options[:submit_for_review].to_s.downcase == 'true' ? true : false
+    # options[:metadata_path] = options[:metadata_path] || 'fastlane/metadata/huawei'
+
+    huawei_appgallery_connect(
+      client_id: ENV['HUAWEI_CLIENT_ID_DEPLOY'],
+      client_secret: ENV['HUAWEI_CLIENT_SECRET_DEPLOY'], # pragma: allowlist secret
+      app_id: options[:app_id],
+      apk_path: Dir["#{options[:apk_path]}"].first,
+
+      # Optional, Parameter beyond this are optional
+      is_aab: File.extname(options[:apk_path]).eql?(".aab"),
+      submit_for_review: options[:submit_for_review],
+      # metadata_path: options[:metadata_path]
+    )
+    UI.success "Finish upload."
+  end
+end

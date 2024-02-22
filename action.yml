@@ -19,8 +19,7 @@ runs:
   steps:
     - id: added-comment
       run: |
-        ls 
-        ls utils
+        ls ${{ github.action_path }}
         echo "HELLO WORLD ${{ inputs.milliseconds }}"
       shell: bash
 

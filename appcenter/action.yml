@@ -1,0 +1,27 @@
+name: 'Test Action HW'
+description: 'Description for CUstom Github action HW'
+author: 'MobCICD'
+
+# Define your inputs here.
+inputs:
+  milliseconds:
+    description: 'Your input description here'
+    required: true
+    default: '1000'
+
+# Define your outputs here.
+outputs:
+  time:
+    description: 'Your output description here'
+
+runs:
+  using: 'composite'
+  steps:
+    - id: added-comment
+      run: |
+        ls ${{ github.action_path }}
+        echo "HELLO WORLD ${{ inputs.milliseconds }}"
+      shell: bash
+
+
+#############################

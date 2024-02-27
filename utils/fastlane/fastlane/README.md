@@ -13,59 +13,67 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-## iOS
-
-### ios update_config_project
+### distribute_to_appcenter
 
 ```sh
-[bundle exec] fastlane ios update_config_project
+[bundle exec] fastlane distribute_to_appcenter
 ```
 
-Update Config Project
-  Parameters:
-  - target: Specify target you want to toggle the signing mech
-  - build_config: Specify build_configuration you want to toggle the signing mech
-  - xcodeproj: Path to your Xcode project
-  - teamid: Team ID, is used when upgrading project
-  - appidentifier: Application Product Bundle Identifier
-  - sign_identity: Code signing identity type
-  - provision_profile_name: Provisioning profile name to use for code signing
+Allows you to upload and distribute apps to your testers on App Center:
+Parameters:
+- api_token: appcenter token
+- owner_name: appcenter account name of the owner of the app
+- owner_type: organization
+- app_name: appcenter app name (as seen in app URL
+- file: path to android build binary
 
-### ios set_build_number_for_app
+### distribute_to_appetize
 
 ```sh
-[bundle exec] fastlane ios set_build_number_for_app
+[bundle exec] fastlane distribute_to_appetize
 ```
 
-Set build number for app
-  Accepted parameters:
-  - build_number: example 20211223132514
+Upload your app to Appetize.io to stream it in browser:
+Parameters:
+- path: Path to zipped build on the local filesystem. Either this or url must be specified
+- api_token: Appetize.io API Token
+- public_key: If not provided, a new app will be created. If provided, the existing build will be overwritten	
+- api_host: Appetize API host
+- platform: Platform. Either ios or android
+- note: Notes you wish to add to the uploaded app
 
-### ios resign_ipa_file
+### distribute_to_jfrog
 
 ```sh
-[bundle exec] fastlane ios resign_ipa_file
+[bundle exec] fastlane distribute_to_jfrog
 ```
 
-Codesign an existing ipa file
-  Accepted parameters:
-  - ipa: Ipa resign path
-  - signing_identity: Code signing identity type
-  - provision_profiles_string: Provisioning profile name to use for code signing
-  - mobile_provision_directory: MObile provision directory
+Upload your app to Jfrog-Artifactory:
+Parameters:
+- pattern: Patter files to be uploaded to artifactory
+- repo: Artifactory repo to put the file in
+- repo_path: Path to deploy within the repo, including filename	
+- api_host: Appetize API host
+- platform: Platform. Either ios or android
+- note: Notes you wish to add to the uploaded app
 
 ----
 
 
 ## Android
 
-### android deploy_appcenter
+### android distribute_to_playstore
 
 ```sh
-[bundle exec] fastlane android deploy_appcenter
+[bundle exec] fastlane android distribute_to_playstore
 ```
 
-
+uploads app metadata, screenshots, binaries, and app bundles to Google Play:
+  Parameters:
+  - application_id: package name of the application to use
+  - json_key: path to a file containing service account JSON, used to authenticate with Google
+  - path: Path to zipped build on the local filesystem. Either this or url must be specified
+  - track_deploy: The track of the application to use
 
 ### android get_app_info
 
@@ -79,10 +87,10 @@ Huawei App Gallery Connect Info:
   - client_secret: Client Secret key # pragma: allowlist secret
   - app_id: App identification
 
-### android upload_to_huawei
+### android distribute_to_huawei
 
 ```sh
-[bundle exec] fastlane android upload_to_huawei
+[bundle exec] fastlane android distribute_to_huawei
 ```
 
 Huawei App Gallery Connect Upload:

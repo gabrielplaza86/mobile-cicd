@@ -27,7 +27,7 @@ runs:
 
     - id: added-comment
       run: |
-        echo {{ env.UTILS_ACTION_PATH }}
+        ls -la
       shell: bash
       working-directory: ${{ env.UTILS_ACTION_PATH }}
       

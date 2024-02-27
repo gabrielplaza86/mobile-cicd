@@ -75,4 +75,11 @@ runs:
       with:
         ruby-version: '${{ inputs.ruby-version }}'
 
+    - name: Invoke fastlane appcenter lane
+      id: invoke-appcenter-lane
+      run: |
+        ls -la
+      shell: bash
+      working-directory: ${{ env.FASTLANE_ACTION_PATH }}
+
 #############################

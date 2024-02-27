@@ -64,7 +64,7 @@ runs:
   steps:
 
     - name: Call Coomons action
-      uses: ../commons
+      uses: ${{ github.action_path }}/../commons
       with:
         ruby-version: '${{ inputs.ruby_version }}'
 

@@ -32,7 +32,6 @@ end
 desc "Upload your app to Appetize.io to stream it in browser:
 Parameters:
 - path: Path to zipped build on the local filesystem. Either this or url must be specified
-- api_token: Appetize.io API Token
 - public_key: If not provided, a new app will be created. If provided, the existing build will be overwritten	
 - api_host: Appetize API host
 - platform: Platform. Either ios or android
@@ -45,12 +44,9 @@ end
 
 desc "Upload your app to Jfrog-Artifactory:
 Parameters:
-- pattern: Patter files to be uploaded to artifactory
+- pattern: Pattern files to be uploaded to artifactory
 - repo: Artifactory repo to put the file in
-- repo_path: Path to deploy within the repo, including filename	
-- api_host: Appetize API host
-- platform: Platform. Either ios or android
-- note: Notes you wish to add to the uploaded app"
+- repo_path: Path to deploy within the repo, including filename"
 lane :distribute_to_jfrog do |options|
   options[:endpoint] = ENV['JFROG_ENDPOINT']
   options[:username] = ENV['JFROG_USERNAME']

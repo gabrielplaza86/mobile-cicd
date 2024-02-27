@@ -70,8 +70,8 @@ runs:
         GH_ACTION_REPO: ${{ github.action_repository }}
         GH_ACTION_REF: ${{ github.action_ref }}      
 
-    - name: Call Commons action
-      uses: ./../../_actions/current/commons
+    - name: Call Generic action to Fastlane
+      uses: ./../../_actions/current/generic-fastlane
       with:
         ruby-version: '${{ inputs.ruby-version }}'
 

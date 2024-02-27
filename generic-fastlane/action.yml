@@ -1,5 +1,5 @@
-name: 'Common action tasks'
-description: 'Common action tasks'
+name: 'Call Generic action to Fastlane'
+description: 'Call Generic action to Fastlane'
 author: 'MobCICD'
 
 inputs:
@@ -26,7 +26,7 @@ runs:
         ruby-version: '${{ inputs.ruby-version }}'
 
     - name: Install fastlane dependencies
-      id: invoke-appcenter-lane
+      id: install-fastlane-dependencies
       run: |
         bundle install --quiet
       shell: bash

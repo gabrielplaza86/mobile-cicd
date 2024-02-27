@@ -1,0 +1,36 @@
+name: 'Call Generic action to Python'
+description: 'Call Generic action to Python'
+author: 'MobCICD'
+
+inputs:
+  python-version:
+    description: 'Python version'
+    default: '3.10'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set utils action path
+      id: set-utils-path
+      run: |
+        action_path=${{ github.action_path }}
+        utils_action_path=$(dirname $action_path)/utils
+        python_action_path=$(dirname $action_path)/utils/python
+        echo "UTILS_ACTION_PATH=${utils_action_path}" >> $GITHUB_ENV
+        echo "PYTHON_ACTION_PATH=${python_action_path}" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Set up Python ${{ input.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ input.python-version }}
+
+    - name: Install python dependencies
+      id: install-fastlane-dependencies
+      run: |
+        python3 --version
+        if [ -f requirements.txt ]; then python3 -m pip install -r requirements.txt; fi 
+      shell: bash
+      working-directory: ${{ env.PYTHON_ACTION_PATH }}
+#############################

@@ -1,0 +1,9 @@
+[project]
+name = "github-tools"
+version = "1.0.0"
+description = "GitHubTools"
+requires-python = ">=3.7"
+dependencies = [
+    "PyGithub>=1.59",
+    "click>=8.1",
+]

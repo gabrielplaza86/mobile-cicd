@@ -8,6 +8,10 @@ inputs:
     description: 'Your input description here'
     required: true
     default: '1000'
+  ruby_version:
+    description: 'Ruby version'
+    default: '3.0'
+    required: false
 
 # Define your outputs here.
 outputs:
@@ -26,6 +30,10 @@ runs:
         echo "UTILS_ACTION_PATH=${utils_action_path}" >> $GITHUB_ENV
         echo "FASTLANE_ACTION_PATH=${fastlane_action_path}" >> $GITHUB_ENV
       shell: bash
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '${{ inputs.ruby_version }}'
 
     - name: Init fastlane
       id: invoke-appcente-lane

@@ -63,8 +63,15 @@ runs:
   using: 'composite'
   steps:
 
-    - name: Call Coomons action
-      uses: ${{ github.action_path }}/../commons
+    - name: Symlink current Actions repo
+      env:
+        GH_ACTION_REPO: ${{ github.action_repository }}
+        GH_ACTION_REF: ${{ github.action_ref }}
+      shell: bash
+      run: ln -s /home/runner/work/_actions/$GH_ACTION_REPO/$GH_ACTION_REF/  /home/runner/work/_actions/current
+
+    - name: Call Commons action
+      uses: ./../../_actions/current/commons
       with:
         ruby-version: '${{ inputs.ruby_version }}'
 

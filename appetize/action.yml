@@ -1,0 +1,85 @@
+name: 'Test Action HW'
+description: 'Description for Custom Github action HW'
+author: 'MobCICD'
+
+inputs:
+  owner_type:
+    description: 'Owner type, either user or organization'
+    default: 'organization'
+    required: true
+  app_name:
+    description: 'App name as found in the Apps URL in App Center'
+    required: true
+  file:
+    description: 'Path to android build binary'
+    required: true
+  destinations:
+    description: 'Comma separated list of distribution group names. Default is Collaborators, use * for all distribution groups'
+    default: 'Collaborators'
+    required: false
+  destination_type:
+    description: 'Destination type of distribution destination.'
+    default: 'group'
+    required: false
+  notify_testers:
+    description: 'Send email notification about release.'
+    default: false
+    required: false        
+  app_display_name:
+    description: 'App display name to use when creating a new app'
+    required: false
+  app_os:
+    description: 'App OS can be Android, iOS, macOS, Windows, Custom'
+    required: false
+  app_platform:
+    description: 'App Platform.'
+    required: false
+  dsym:
+    description: 'Path to your symbols file.'
+    required: false
+  mapping:
+    description: 'Path to your Android mapping.txt'
+    required: false
+  release_notes:
+    description: 'Release notes'
+    default: 'No changelog given'
+    required: false
+  build_number:
+    description: 'The build number, required for macOS .pkg and .dmg builds, as well as Android ProGuard mapping.txt when using upload_mapping_only'
+    required: false
+  version:
+    description: 'The build version, required for .pkg, .dmg, .zip and .msi builds, as well as Android ProGuard mapping.txt when using upload_mapping_only'
+    required: false
+  timeout:
+    description: 'Request timeout in seconds applied to individual HTTP requests.'
+    required: false
+  ruby-version:
+    description: 'Ruby version'
+    default: '3.3'
+    required: false
+   
+
+runs:
+  using: 'composite'
+  steps:
+
+    - name: Symlink current Actions repo
+      run: ln -s /home/runner/work/_actions/$GH_ACTION_REPO/$GH_ACTION_REF/  /home/runner/work/_actions/current  
+      shell: bash
+      env:
+        GH_ACTION_REPO: ${{ github.action_repository }}
+        GH_ACTION_REF: ${{ github.action_ref }}      
+
+    - name: Call Commons action
+      uses: ./../../_actions/current/commons
+      with:
+        ruby-version: '${{ inputs.ruby-version }}'
+
+    - name: Invoke fastlane appetize lane
+      id: invoke-lane
+      run: |
+        ls -la
+      shell: bash
+      working-directory: ${{ env.FASTLANE_ACTION_PATH }}
+
+#############################

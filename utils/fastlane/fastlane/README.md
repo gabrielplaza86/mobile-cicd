@@ -24,8 +24,9 @@ Parameters:
 - api_token: appcenter token
 - owner_name: appcenter account name of the owner of the app
 - owner_type: organization
-- app_name: appcenter app name (as seen in app URL
+- app_name: appcenter app name (as seen in app URL)
 - file: path to android build binary
+- destinations: Comma separated list of distribution group names. Default is 'Collaborators', use '*' for all distribution groups
 
 ### distribute_to_appetize
 

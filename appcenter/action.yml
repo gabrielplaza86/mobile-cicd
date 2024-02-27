@@ -10,7 +10,7 @@ inputs:
     default: '1000'
   ruby_version:
     description: 'Ruby version'
-    default: '3.0'
+    default: ''
     required: false
 
 # Define your outputs here.

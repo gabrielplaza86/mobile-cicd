@@ -17,6 +17,8 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - name: Generate app installation token
+      id: generate-token
       run: |
         action_path=${{ github.action_path }}
         action_repo_path=$(dirname $action_path)

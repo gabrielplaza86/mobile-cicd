@@ -4,14 +4,17 @@ author: 'MobCICD'
 
 inputs:
   owner_type:
-    description: 'Appcenter app name (as seen in app URL)'
+    description: 'Owner type, either user or organization'
     default: 'organization'
+    required: true
+  app_name:
+    description: 'App name as found in the Apps URL in App Center'
     required: true
   file:
     description: 'Path to android build binary'
     required: true
   destinations:
-    description: 'Comma separated list of distribution group names. Default is 'Collaborators', use '*' for all distribution groups'
+    description: 'Comma separated list of distribution group names. Default is Collaborators, use * for all distribution groups'
     default: 'Collaborators'
     required: false
   destination_type:
@@ -32,24 +35,24 @@ inputs:
     description: 'App Platform.'
     required: false
   dsym:
-      description: 'Path to your symbols file.'
-      required: false
+    description: 'Path to your symbols file.'
+    required: false
   mapping:
-      description: 'Path to your Android mapping.txt'
-      required: false
+    description: 'Path to your Android mapping.txt'
+    required: false
   release_notes:
-      description: 'Release notes'
-      default: 'No changelog given'
-      required: false
+    description: 'Release notes'
+    default: 'No changelog given'
+    required: false
   build_number:
-      description: 'The build number, required for macOS .pkg and .dmg builds, as well as Android ProGuard mapping.txt when using upload_mapping_only'
-      required: false
+    description: 'The build number, required for macOS .pkg and .dmg builds, as well as Android ProGuard mapping.txt when using upload_mapping_only'
+    required: false
   version:
-      description: 'The build version, required for .pkg, .dmg, .zip and .msi builds, as well as Android ProGuard mapping.txt when using upload_mapping_only'
-      required: false
+    description: 'The build version, required for .pkg, .dmg, .zip and .msi builds, as well as Android ProGuard mapping.txt when using upload_mapping_only'
+    required: false
   timeout:
-      description: 'Request timeout in seconds applied to individual HTTP requests.'
-      required: false
+    description: 'Request timeout in seconds applied to individual HTTP requests.'
+    required: false
   ruby-version:
     description: 'Ruby version'
     default: '3.3'

@@ -29,6 +29,7 @@ runs:
       run: |
         echo {{ env.UTILS_ACTION_PATH }}
       shell: bash
+      working-directory: ${{ env.UTILS_ACTION_PATH }}
       
      
 

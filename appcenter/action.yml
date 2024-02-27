@@ -1,5 +1,5 @@
 name: 'Test Action HW'
-description: 'Description for CUstom Github action HW'
+description: 'Description for Custom Github action HW'
 author: 'MobCICD'
 
 # Define your inputs here.
@@ -17,12 +17,17 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - id: added-comment
       run: |
         action_path=${{ github.action_path }}
-        echo $(dirname $action_path)
-        echo "HELLO WORLD ${{ inputs.milliseconds }}"
+        action_repo_path=$(dirname $action_path)
+        echo "ACTION_REPO_PATH=${action_repo_path}" >> $GITHUB_ENV
       shell: bash
+
+    - id: added-comment
+      run: |
+        echo {{ env.ACTION_REPO_PATH }}
+      shell: bash
+      working-directory: {{ env.ACTION_REPO_PATH }}
      
 
 

@@ -1,0 +1,34 @@
+name: 'Common action tasks'
+description: 'Common action tasks'
+author: 'MobCICD'
+
+inputs:
+  ruby-version:
+    description: 'Ruby version'
+    default: '3.3'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set utils action path
+      id: set-utils-path
+      run: |
+        action_path=${{ github.action_path }}
+        utils_action_path=$(dirname $action_path)/utils
+        fastlane_action_path=$(dirname $action_path)/utils/fastlane
+        echo "UTILS_ACTION_PATH=${utils_action_path}" >> $GITHUB_ENV
+        echo "FASTLANE_ACTION_PATH=${fastlane_action_path}" >> $GITHUB_ENV
+      shell: bash
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '${{ inputs.ruby-version }}'
+
+    - name: Install fastlane dependencies
+      id: invoke-appcenter-lane
+      run: |
+        bundle install --quiet
+      shell: bash
+      working-directory: ${{ env.FASTLANE_ACTION_PATH }}
+#############################

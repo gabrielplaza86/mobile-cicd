@@ -2,7 +2,6 @@ name: 'Test Action HW'
 description: 'Description for Custom Github action HW'
 author: 'MobCICD'
 
-# Define your inputs here.
 inputs:
   owner_type:
     description: 'Appcenter app name (as seen in app URL)'
@@ -51,47 +50,19 @@ inputs:
   timeout:
       description: 'Request timeout in seconds applied to individual HTTP requests.'
       required: false
-  ruby_version:
+  ruby-version:
     description: 'Ruby version'
     default: '3.3'
     required: false
-
-# Define your outputs here.
-outputs:
-  time:
-    description: 'Your output description here'
+   
 
 runs:
   using: 'composite'
   steps:
-    - name: Set utils action path
-      id: set-utils-path
-      run: |
-        action_path=${{ github.action_path }}
-        utils_action_path=$(dirname $action_path)/utils
-        fastlane_action_path=$(dirname $action_path)/utils/fastlane
-        echo "UTILS_ACTION_PATH=${utils_action_path}" >> $GITHUB_ENV
-        echo "FASTLANE_ACTION_PATH=${fastlane_action_path}" >> $GITHUB_ENV
-      shell: bash
 
-    - uses: ruby/setup-ruby@v1
+    - name: Call Coomons action
+      uses: ../commons
       with:
         ruby-version: '${{ inputs.ruby_version }}'
-
-    - name: Init fastlane
-      id: invoke-appcente-lane
-      run: |
-        bundle install --quiet
-        bundle exec fastlane distribute_to_appcenter \ 
-                    owner_type:"${{ inputs.owner_type }}" \
-                    app_name:"${{ inputs.app_name }}" \
-                    notify_testers:${{ inputs.notify_testers }} \
-                    file:"${{ inputs.file }}" \
-                    destinations:"${{ inputs.destinations }}"
-      shell: bash
-      working-directory: ${{ env.FASTLANE_ACTION_PATH }}
-      
-     
-
 
 #############################

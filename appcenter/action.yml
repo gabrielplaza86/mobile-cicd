@@ -29,7 +29,7 @@ runs:
       run: |
         echo {{ env.ACTION_REPO_PATH }}
       shell: bash
-      working-directory: {{ env.ACTION_REPO_PATH }}
+      working-directory: '{{ env.ACTION_REPO_PATH }}'
      
 
 

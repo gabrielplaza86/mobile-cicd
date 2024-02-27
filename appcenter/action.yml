@@ -19,8 +19,8 @@ runs:
   steps:
     - id: added-comment
       run: |
-        echo ${{ github.action_path }}
-        ls /home/runner/work/_actions/gabrielplaza86/mobile-cicd/main/
+        action_path=${{ github.action_path }}
+        echo $(basename $action_path)
         echo "HELLO WORLD ${{ inputs.milliseconds }}"
       shell: bash
      

@@ -19,9 +19,7 @@ runs:
   steps:
     - id: added-comment
       run: |
-        echo '${{ toJSON(github) }}'
         echo ${{ github.action_path }}
-        echo ${{ github.action_repository }}
         ls /home/runner/work/_actions/gabrielplaza86/mobile-cicd/main/
         echo "HELLO WORLD ${{ inputs.milliseconds }}"
       shell: bash

@@ -19,6 +19,7 @@ runs:
   steps:
     - id: added-comment
       run: |
+        echo '${{ toJSON(github) }}'
         echo ${{ github.action_path }}
         echo ${{ github.action_repository }}
         echo "HELLO WORLD ${{ inputs.milliseconds }}"

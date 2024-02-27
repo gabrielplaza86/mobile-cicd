@@ -27,10 +27,11 @@ runs:
         echo "FASTLANE_ACTION_PATH=${fastlane_action_path}" >> $GITHUB_ENV
       shell: bash
 
-    - name: Set utils action path
-      id: invoke-appcente-labe
+    - name: Init fastlane
+      id: invoke-appcente-lane
       run: |
-        ls -la
+        bundle install 
+        bundle exec fastlane lanes
       shell: bash
       working-directory: ${{ env.FASTLANE_ACTION_PATH }}
       

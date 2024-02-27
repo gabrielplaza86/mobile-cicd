@@ -17,19 +17,19 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - name: Generate app installation token
-      id: generate-token
+    - name: Set utils action path
+      id: set-utils-path
       run: |
         action_path=${{ github.action_path }}
-        action_repo_path=$(dirname $action_path)
-        echo "ACTION_REPO_PATH=${action_repo_path}" >> $GITHUB_ENV
+        utils_action_path=$(dirname $action_path)/utils
+        echo "UTILS_ACTION_PATH=${utils_action_path}" >> $GITHUB_ENV
       shell: bash
 
     - id: added-comment
       run: |
-        echo {{ env.ACTION_REPO_PATH }}
+        echo {{ env.UTILS_ACTION_PATH }}
       shell: bash
-      working-directory: '{{ env.ACTION_REPO_PATH }}'
+      
      
 
 

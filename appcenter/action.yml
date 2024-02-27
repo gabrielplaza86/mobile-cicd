@@ -38,7 +38,7 @@ runs:
     - name: Init fastlane
       id: invoke-appcente-lane
       run: |
-        bundle install 
+        bundle install --verbose
         bundle exec fastlane lanes
       shell: bash
       working-directory: ${{ env.FASTLANE_ACTION_PATH }}

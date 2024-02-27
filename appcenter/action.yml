@@ -73,6 +73,6 @@ runs:
     - name: Call Commons action
       uses: ./../../_actions/current/commons
       with:
-        ruby-version: '${{ inputs.ruby_version }}'
+        ruby-version: '${{ inputs.ruby-version }}'
 
 #############################

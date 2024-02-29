@@ -1,6 +1,6 @@
-name: 'Test Action HW'
+name: 'mobcicd-distribute_to_jfrog'
 description: 'Description for Custom Github action HW'
-author: 'MobCICD'
+author: 'Productivity Mobile CI/CD'
 
 inputs:
   pattern:
@@ -37,7 +37,7 @@ runs:
     - name: Invoke fastlane jfrog lane
       id: invoke-lane
       run: |
-        ls -la
+        bundle exec fastlane distribute_to_jfrog pattern:"${{ inputs.pattern }}" repo:"${{ inputs.repo }}" repo_path:"${{ inputs.repo_path }}"
       shell: bash
       working-directory: ${{ env.FASTLANE_ACTION_PATH }}
 

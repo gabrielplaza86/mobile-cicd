@@ -1,6 +1,6 @@
-name: 'Test Action HW'
-description: 'Description for Custom Github action HW'
-author: 'MobCICD'
+name: 'mobcicd-distribute_to_huawei'
+description: 'Huawei App Gallery Connect Upload'
+author: 'Productivity Mobile CI/CD'
 
 inputs:
   app_id:
@@ -37,7 +37,7 @@ runs:
     - name: Invoke fastlane Huawei lane
       id: invoke-lane
       run: |
-        ls -la
+        bundle exec fastlane android distribute_to_huawei app_id:"${{ inputs.app_id }}" apk_path:"${{ inputs.apk_path }}" submit_for_review:${{ inputs.submit_for_review }}
       shell: bash
       working-directory: ${{ env.FASTLANE_ACTION_PATH }}
 

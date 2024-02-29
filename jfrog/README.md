@@ -1,8 +1,8 @@
-# Distribute app builds to testers and users via App Center.
+# Distribute app builds to testers and users via Jfrog-Artifactory.
 
 ## Description
 
-This action has the purpose to distribute app builds to testers and users via Visual Studio App Center.
+Upload your app to Jfrog-Artifactory
 
 ## Dependencies
 
@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   test-actions:
-    name: Appcenter Tests
+    name: Distribute Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +29,11 @@ jobs:
       id: checkout
       uses: actions/checkout@v4
   
-    - name: Run Appcenter Action
-      id: appcenter-action
-      uses: inditex/gha-mobdistribute/appcenter@v1
+    - name: Run Distribute Action
+      id: distribute-action
+      uses: inditex/gha-mobdistribute/jfrog@v1
       with:
-        owner_type: "organization"
-        app_name: "mob-helloworldand"
-        file: "./test.apk"
+        pattern: './test*.apk'
+        repo: 'test-snapshot-local'
+        repo_path: 'Developments/v1/'
 ```

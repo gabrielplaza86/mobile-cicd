@@ -1,0 +1,6 @@
+[project]
+name = "apk_signer"
+version = "1.0.0"
+description = "Sign APK"
+requires-python = ">=3.7"
+dependencies = []

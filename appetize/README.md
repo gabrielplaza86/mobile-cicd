@@ -1,8 +1,8 @@
-# Distribute app builds to testers and users via App Center.
+# Distribute app builds to testers and users via Appetize.
 
 ## Description
 
-This action has the purpose to distribute app builds to testers and users via Visual Studio App Center.
+Upload your app to Appetize.io to stream it in browser
 
 ## Dependencies
 
@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   test-actions:
-    name: Appcenter Tests
+    name: Distribute Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +29,12 @@ jobs:
       id: checkout
       uses: actions/checkout@v4
   
-    - name: Run Appcenter Action
-      id: appcenter-action
-      uses: inditex/gha-mobdistribute/appcenter@v1
+    - name: Run Distribute Action
+      id: distribute-action
+      uses: inditex/gha-mobdistribute/appetize@v1
       with:
-        owner_type: "organization"
-        app_name: "mob-helloworldand"
-        file: "./test.apk"
+        path: "./MyApp.zip",
+        api_host: "company.appetize.io", # only needed for enterprise hosted solution
+        api_token: "yourapitoken", # get it from https://appetize.io/docs#request-api-token
+        public_key: "your_public_key"
 ```

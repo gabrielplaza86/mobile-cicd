@@ -1,8 +1,8 @@
-# Distribute app builds to testers and users via App Center.
+# Distribute app builds to testers and users via Playstore.
 
 ## Description
 
-This action has the purpose to distribute app builds to testers and users via Visual Studio App Center.
+Upload metadata, screenshots and binaries to Google Play (via supply)
 
 ## Dependencies
 
@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   test-actions:
-    name: Appcenter Tests
+    name: Distribute Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +29,11 @@ jobs:
       id: checkout
       uses: actions/checkout@v4
   
-    - name: Run Appcenter Action
-      id: appcenter-action
-      uses: inditex/gha-mobdistribute/appcenter@v1
+    - name: Run Distribute Action
+      id: distribute-action
+      uses: inditex/gha-mobdistribute/playstore@v1
       with:
-        owner_type: "organization"
-        app_name: "mob-helloworldand"
-        file: "./test.apk"
+        application_id: 'com.inditex.TEST'
+        json_key: './helloworld.json'
+        path: './test.apk'
 ```

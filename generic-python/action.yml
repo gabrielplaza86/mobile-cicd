@@ -1,6 +1,6 @@
 name: 'Call Generic action to Python'
 description: 'Call Generic action to Python'
-author: 'MobCICD'
+author: 'Productivity Mobile CI/CD'
 
 inputs:
   python-version:

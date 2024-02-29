@@ -1,29 +1,27 @@
-name: 'Test Action HW'
-description: 'Description for Custom Github action HW'
-author: 'MobCICD'
+name: 'mobcicd-distribute_to_mobileiron'
+description: 'Mobileiron makes distributing your apps to enterprise devices.'
+author: 'Productivity Mobile CI/CD'
 
 inputs:
   app_file_path:
-    description: 'Owner type, either user or organization'
+    description: 'Artifact path'
     default: 'organization'
     required: true
   app_file_extension:
-    description: 'App name as found in the Apps URL in App Center'
+    description: 'Artifact extension'
     required: true
   build_id:
-    description: 'Path to android build binary'
+    description: 'Build ID'
     required: true
   artifact_name:
-    description: 'Comma separated list of distribution group names. Default is Collaborators, use * for all distribution groups'
-    default: 'Collaborators'
-    required: false
+    description: 'Android or iOS'
+    required: True
   workflow_name:
-    description: 'Destination type of distribution destination.'
-    default: 'group'
+    description: 'GH CICD workflow'
+    default: 'deploy-mobileIron-pipeline'
     required: false
   iron_admin_device_space_id:
-    description: 'Send email notification about release.'
-    default: 'deploy-mobileIron-pipeline'
+    description: 'Is a paramter to customize the device-space on Mobile iron where it will be deployed'
     required: false        
   python-version:
     description: 'Python version'

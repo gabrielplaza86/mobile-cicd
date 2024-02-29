@@ -1,6 +1,6 @@
 name: 'Call Generic action to Fastlane'
 description: 'Call Generic action to Fastlane'
-author: 'MobCICD'
+author: 'Productivity Mobile CI/CD'
 
 inputs:
   ruby-version:

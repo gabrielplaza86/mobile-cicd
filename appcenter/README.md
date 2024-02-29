@@ -34,6 +34,6 @@ jobs:
       uses: inditex/gha-mobdistribute/appcenter@v1
       with:
         owner_type: "organization"
-        app_name: "mob-helloworldand"
+        app_name: "mob-test"
         file: "./test.apk"
 ```

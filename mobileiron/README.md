@@ -1,12 +1,12 @@
-# Distribute app builds to testers and users via App Center.
+# Mobileiron makes distributing your apps to enterprise devices.
 
 ## Description
 
-This action has the purpose to distribute app builds to testers and users via Visual Studio App Center.
+This action has the purpose to distribute app builds to Mobileiron.
 
 ## Dependencies
 
-This action must be used with a runner with Ruby 3.x.
+This action must be used with a runner with Python 3.10.x
 
 ## Examples usage
 
@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   test-actions:
-    name: Appcenter Tests
+    name: Distribute Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -29,10 +29,16 @@ jobs:
       id: checkout
       uses: actions/checkout@v4
   
-    - name: Run Appcenter Action
-      id: appcenter-action
-      uses: inditex/gha-mobdistribute/appcenter@v1
+    - name: Run Distribute Action
+      id: distribute-action
+      uses: inditex/gha-mobdistribute/mobileiron@v1
       with:
+        app_file_path: './test.apk'
+        app_file_extension: 'apk'
+        build_id: '1234'
+        artifact_name: 'Android'
+
+
         owner_type: "organization"
         app_name: "mob-helloworldand"
         file: "./test.apk"

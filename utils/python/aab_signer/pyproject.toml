@@ -1,0 +1,6 @@
+[project]
+name = "aab_signer"
+version = "1.0.0"
+description = "Sign AAB"
+requires-python = ">=3.7"
+dependencies = []

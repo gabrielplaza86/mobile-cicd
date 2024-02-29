@@ -1,8 +1,8 @@
-# Distribute app builds to testers and users via App Center.
+# Distribute app builds to testers and users via Huawei.
 
 ## Description
 
-This action has the purpose to distribute app builds to testers and users via Visual Studio App Center.
+Huawei App Gallery Connect Upload
 
 ## Dependencies
 
@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   test-actions:
-    name: Appcenter Tests
+    name: Distribute Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +29,10 @@ jobs:
       id: checkout
       uses: actions/checkout@v4
   
-    - name: Run Appcenter Action
-      id: appcenter-action
-      uses: inditex/gha-mobdistribute/appcenter@v1
+    - name: Run Distribute Action
+      id: distribute-action
+      uses: inditex/gha-mobdistribute/huawei@v1
       with:
-        owner_type: "organization"
-        app_name: "mob-helloworldand"
-        file: "./test.apk"
+        app_id: 'com.inditex.TEST'
+        apk_path: './test.apk'
 ```
